@@ -1,0 +1,16 @@
+{
+  "listeners": {
+    "*:8080": {
+      "pass": "applications/blog"
+    }
+  },
+
+  "applications": {
+    "blog": {
+      "type": "python",
+      "processes": 2,
+      "path": "/usr/src/app/",
+      "module": "app"
+    }
+  }
+}

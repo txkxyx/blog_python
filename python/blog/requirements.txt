@@ -1,0 +1,14 @@
+Flask
+flask-sqlalchemy
+Flask-Migrate
+Flask-WTF
+flask-login
+werkzeug
+flask-cors
+cryptography
+PyMySQL
+flake8
+pyformat
+isort
+ptvsd
+boto3

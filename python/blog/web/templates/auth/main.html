@@ -1,0 +1,66 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="column is-8 is-offset-2">
+            <h3 class="title is-2 has-text-centered">Auth Management</h3>
+            <h4 class="title is-4 has-text-left">Users</h4>
+            <a href="/auth/signup" class="button is-info">New</a>
+            <div>
+                <table class="table is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Edit</th>
+                            <th>Password</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <form action="/auth/user/edit" id="{{user.id}}_useredit"><input type="hidden" name="id" value="{{user.id}}" form="{{user.id}}_useredit"/></form>
+                                <form action="/auth/user/change" id="{{user.id}}_userchange"><input type="hidden" name="id" value="{{user.id}}" form="{{user.id}}_userchange"/></form>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.mail }}</td>
+                                <td><button class="button is-success" form="{{user.id}}_useredit">Edit</button></td>
+                                <td><button class="button is-warning" form="{{user.id}}_userchange">Change</button></td>
+                                <td><button class="button is-danger" form="{{user.id}}_useredit">Delete</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="title is-4 has-text-left">Articles</h4>
+            <a href="/article/post" class="button is-info">New</a>
+            <div>
+                <table class="table is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                        <tr>
+                            <form action="/article/edit" id="{{article.id}}_articleedit"><input type="hidden" name="id" value="{{ article.id }}" form="{{article.id}}_articleedit"></form>
+                            <td>{{ article.id }}</td>
+                            <td>{{ article.title }}</td>
+                            <td><button class="button is-success" form="{{article.id}}_articleedit">Edit</button></td>
+                            <td><button class="button is-danger" form="{{article.id}}_articleedit">Delete</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

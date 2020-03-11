@@ -1,0 +1,63 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container" >
+        <div class="column is-8 is-offset-2 contents">
+            <h3 class="title is-2 has-text-centered">{{ article.title}}</h3>
+            <p class="title is-6 has-text-centered">
+                <i class="fas fa-tag"></i>
+                {% for genre in genres %}
+                    <a href="/articles/{{genre.id}}" class="subtitle is-6 has-text-dark">{{ genre.name }} </a>
+                {% endfor %}
+            </p>
+            <h6 class="title is-6 has-text-centered">{{ article.insert_date.strftime("%Y/%m/%d") }}</h6>
+            <div id="body" class="content">{{ article.body }}</div>
+        </div>
+        <div class="column is-8 is-offset-2 contents-relations">
+            <h4 class="title is-3 has-text-left">関連記事</h4>
+            {% for article in relations %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="https://blog-bucket-nine.s3-ap-northeast-1.amazonaws.com/{{article.img_url}}" alt="Image">
+                    </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <div><strong><a href="/article/{{article.id}}" class="is-size-4 has-text-black">{{ article.title}}</a></strong></div>                                
+                            <div class="is-inline-block"><i class="fas fa-tag"></i>
+                                {% for genre in article.genres %}
+                                    <a href="/articles/{{genre.id}}" class="subtitle is-6 has-text-dark">{{ genre.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="is-size-6 is-inline-block has-text-dark is-pulled-right">{{ article.insert_date.strftime("%Y/%m/%d ") }}</div>
+                            <div class="content body">
+                                {{ article.summary }}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+</section>
+<script>
+    marked.setOptions({
+        langPrefix: ''
+    });
+    let html = marked($("#body").html());
+    $("#body").html(html);
+    $("#body").find("h1").each(function(index,element){
+        $(element).addClass('title is-4');
+    });
+    $("#body").find("h2").each(function(index,element){
+        $(element).addClass('title is-5');
+    });
+    $("#body").find("h3").each(function(index,element){
+        $(element).addClass('title is-6');
+    });
+</script>
+{% endblock %}

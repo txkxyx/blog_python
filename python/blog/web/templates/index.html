@@ -1,0 +1,49 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+  <!-- Hero content: will be in the middle -->
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        エンジニアの控え室
+      </h1>
+      <h2 class="subtitle">
+        とあるエンジニアの控え室
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="column is-8 is-offset-2">
+          {% for article in articles %}
+          <div class="box">
+              <article class="media">
+                  <div class="media-left">
+                  <figure class="image is-64x64">
+                      <img src="https://blog-bucket-nine.s3-ap-northeast-1.amazonaws.com/{{article.img_url}}" alt="Image">
+                  </figure>
+                  </div>
+                  <div class="media-content">
+                      <div class="content">
+                          <div><strong><a href="/article/{{article.id}}" class="is-size-4 has-text-black">{{ article.title}}</a></strong></div>
+                          <div class="is-inline-block"><i class="fas fa-tag"></i>
+                              {% for genre in article.genres %}
+                                  <a href="/articles/{{genre.id}}" class="subtitle is-6 has-text-dark">{{ genre.name }}</a>
+                              {% endfor %}
+                          </div>
+                          <div class="is-size-6 is-inline-block has-text-dark is-pulled-right">{{ article.insert_date.strftime("%Y/%m/%d ") }}</div>
+                          <div class="content body">
+                              {{ article.summary }}
+                          </div>
+                      </div>
+                  </div>
+              </article>
+              </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

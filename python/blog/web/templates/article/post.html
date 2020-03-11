@@ -1,0 +1,59 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="column is-8 is-offset-2">
+            <h3 class="title is-2 has-text-centered">Post</h3>
+            <form action="/article/post" method="POST" enctype="multipart/form-data">
+                {{ form.csrf_token}}
+                <div class="field">
+                    <label for="title" class="label">{{ form.title.label }}</label>
+                    <input type="text" class="input" placeholder="Title" name="title">
+                </div>
+                <div class="field">
+                    <label for="image" class="label">{{ form.image.label }}</label>
+                    <input type="file" class="input" name="image" required>
+                </div>
+                <div class="field">
+                    <label for="genre" class="label">{{ form.genre.label }}</label>
+                    <input type="text" class="input" placeholder="Python, Java" name="genre">
+                </div>
+                <div class="field">
+                    <label for="summary" class="label">{{ form.summary.label }}</label>
+                    <input type="text" class="input" placeholder="これはJavaの記事です" name="summary" max="150">
+                </div>
+                <div class="field">
+                    <label for="body" class="label">{{ form.body.label }}</label>
+                    <textarea name="body" id="body" cols="50" rows="100" class="textarea"></textarea>
+                </div>
+                <div class="column is-half is-offset-one-quarter has-text-centered">
+                    <input type="button" class="button is-primary confirm" value="{{ form.submit }}"/>
+                </div>
+                <div class="modal" id="confirm">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title">Confirm Post</p>
+                        </header>
+                        <section class="modal-card-body">
+                            記事を投稿してもよろしいですか？
+                        </section>
+                        <footer class="modal-card-foot">
+                        <input type="submit" class="button is-success" value="{{ form.submit }}"/>
+                        <input type="button" class="button close" value="Close"/>
+                        </footer>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    var simplemde = new EasyMDE({
+            element: $("#body")[0],
+            forceSync: true,
+            spellChecker: false
+        });
+</script>
+{% endblock %}
